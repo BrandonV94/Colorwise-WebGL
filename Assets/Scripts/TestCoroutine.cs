@@ -1,3 +1,6 @@
+// DO NOT USE 
+// Script used to test and verify that coroutines are working as intended.
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

@@ -7,10 +7,8 @@ public class CheckPieces : MonoBehaviour
     [SerializeField] Component[] adjacentSprites;
     [SerializeField] Color curColor;
 
-
     public bool isPieceUnique = false;
     string hexWhite = "FFFFFF";
-
 
     void Update()
     {

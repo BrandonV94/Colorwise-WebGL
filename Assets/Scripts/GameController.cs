@@ -8,14 +8,17 @@ public class GameController : MonoBehaviour
     [Header("Instantiated Objects")]
     [SerializeField] CheckColors checkColors;
     [SerializeField] GameObject mainImage;
-    [SerializeField] GameObject congratulations;
-    [SerializeField] TextMeshProUGUI colorsNotUsedText;
-    [SerializeField] AudioSource completeSFX;
-    [SerializeField] AudioSource incorrectSFX;
     [SerializeField] public GameObject[] gamePieces;
 
+    [Header("Text and Banners")]
+    [SerializeField] GameObject congratulations;
+    [SerializeField] TextMeshProUGUI colorsNotUsedText;
+
+    [Header("Sound Effects")]
+    [SerializeField] AudioSource completeSFX;
+    [SerializeField] AudioSource incorrectSFX;
+
     [Header("Conditions")]
-    [SerializeField] bool isGameComplete = false;
     [SerializeField] int numUniquePieces = 0;
     [SerializeField] int delayCongratulations = 1;
     [SerializeField] int delayIncorrect = 1;
@@ -23,7 +26,8 @@ public class GameController : MonoBehaviour
     void Awake()
     {
         congratulations = GameObject.Find("Congratulations");
-        colorsNotUsedText = FindObjectOfType<TextMeshProUGUI>();
+        colorsNotUsedText = GameObject.Find("All Colors Not Used Text (TMP)")
+            .GetComponent<TextMeshProUGUI>();
         mainImage = GameObject.Find("Main");
         gamePieces = GameObject.FindGameObjectsWithTag("PlayablePiece");
         checkColors = FindObjectOfType<CheckColors>();
@@ -46,7 +50,6 @@ public class GameController : MonoBehaviour
             {
                 incorrectSFX.Play();
                 StartCoroutine(Pulse(pieceSR));
-                isGameComplete = false;
             }
             else
             {
@@ -56,16 +59,13 @@ public class GameController : MonoBehaviour
 
         if (!checkColors.allColorsUsed)
         {
-            incorrectSFX.Play();
-            colorsNotUsedText.gameObject.SetActive(true);
-            Invoke("DeactivateColorsNotUsed", delayIncorrect);
+            ActivateColorNotUsed();
         }
         
         // Checks if all game pieces are unique and all colors are being used.
         if (numUniquePieces == gamePieces.Length && checkColors.allColorsUsed)
         {
             Invoke("ActivateCongratulations", delayCongratulations);
-            isGameComplete = true;
         }
 
         numUniquePieces = 0;
@@ -97,6 +97,13 @@ public class GameController : MonoBehaviour
     {
         completeSFX.Play();
         congratulations.gameObject.SetActive(true);
+    }
+
+    void ActivateColorNotUsed()
+    {
+        incorrectSFX.Play();
+        colorsNotUsedText.gameObject.SetActive(true);
+        Invoke("DeactivateColorsNotUsed", delayIncorrect);
     }
 
     void DeactivateColorsNotUsed()

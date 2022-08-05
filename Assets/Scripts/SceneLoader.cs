@@ -8,6 +8,7 @@ using TMPro;
 public class SceneLoader : MonoBehaviour
 {
     [Tooltip("Only change if additional menu scenes added.")][SerializeField] int sceneOffSet = 2; 
+    
     public void LoadMainMenu()
     {
         SceneManager.LoadScene(1); // 1 = main menu scene.
