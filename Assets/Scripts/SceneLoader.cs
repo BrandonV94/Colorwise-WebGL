@@ -7,7 +7,8 @@ using TMPro;
 
 public class SceneLoader : MonoBehaviour
 {
-    [Tooltip("Only change if additional menu scenes added.")][SerializeField] int sceneOffSet = 2; 
+    [Tooltip("Only change if additional menu scenes added.")]
+    [SerializeField] int sceneOffSet = 2; 
     
     public void LoadMainMenu()
     {
@@ -18,6 +19,11 @@ public class SceneLoader : MonoBehaviour
     {
         Debug.Log("Closing application.");
         Application.Quit();
+    }
+
+    public void LoadSettings()
+    {
+        Debug.Log("Need to make new settings scene.");
     }
 
     public void LoadLevel(Button btn)

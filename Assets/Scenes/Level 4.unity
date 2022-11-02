@@ -1273,6 +1273,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: LoadMainMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 3668321082647454338, guid: e7959b90e428ca549bada618704b7dcb, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 412
+      objectReference: {fileID: 0}
     - target: {fileID: 9024702052983096739, guid: e7959b90e428ca549bada618704b7dcb, type: 3}
       propertyPath: m_TargetGraphic
       value: 
@@ -1295,7 +1299,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9180654035360745835, guid: e7959b90e428ca549bada618704b7dcb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 599.2
+      value: 588
       objectReference: {fileID: 0}
     - target: {fileID: 9180654035837293849, guid: e7959b90e428ca549bada618704b7dcb, type: 3}
       propertyPath: m_Name

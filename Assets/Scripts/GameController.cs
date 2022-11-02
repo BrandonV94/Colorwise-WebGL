@@ -1,14 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using TMPro;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-    [Header("Instantiated Objects")]
+    [Header("Game Objects")]
+    // Check Button Test
+    [SerializeField] GameObject checkButton;
+    [SerializeField] GameObject buttonsCheck;
+    [SerializeField] GameObject buttonsCross;
     [SerializeField] CheckColors checkColors;
     [SerializeField] GameObject mainImage;
     [SerializeField] public GameObject[] gamePieces;
+    
+
 
     [Header("Text and Banners")]
     [SerializeField] GameObject congratulations;
@@ -25,11 +33,12 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
-        congratulations = GameObject.Find("Congratulations");
+        congratulations = GameObject.Find("Congratulations Banner");
         colorsNotUsedText = GameObject.Find("All Colors Not Used Text (TMP)")
             .GetComponent<TextMeshProUGUI>();
         mainImage = GameObject.Find("Main");
         gamePieces = GameObject.FindGameObjectsWithTag("PlayablePiece");
+        if(gamePieces.Length < 1) { Debug.Log("No pieces found! Check game pieces tag.");}
         checkColors = FindObjectOfType<CheckColors>();
     }
 
@@ -37,6 +46,8 @@ public class GameController : MonoBehaviour
     {
         congratulations.gameObject.SetActive(false);
         colorsNotUsedText.gameObject.SetActive(false);
+        // Check button cross component set to inactive
+        buttonsCross.gameObject.SetActive(false);
     }
 
     public void CheckGameOver()
@@ -74,6 +85,7 @@ public class GameController : MonoBehaviour
     // Makes any non-unique piece pulse when checking for game results.
     IEnumerator Pulse(SpriteRenderer pieceSR)
     {
+        toggleCheckButton();
         int countDown = 12;
         for (; countDown > 0; countDown--)
         {
@@ -89,6 +101,7 @@ public class GameController : MonoBehaviour
         }
 
         pieceSR.sortingOrder = 0;
+        toggleCheckButton();
         yield break;    // Breaks the coroutine after flashing for a few seconds
     }
 
@@ -109,5 +122,21 @@ public class GameController : MonoBehaviour
     void DeactivateColorsNotUsed()
     {
         colorsNotUsedText.gameObject.SetActive(false);
+    }
+
+    void toggleCheckButton()
+    {
+        if (buttonsCheck.activeSelf)
+        {
+            checkButton.GetComponent<Image>().color = new Color(255,0,0);
+            buttonsCheck.gameObject.SetActive(false);
+            buttonsCross.gameObject.SetActive(true);
+        }
+        else
+        {
+            checkButton.GetComponent<Image>().color = Color.green;
+            buttonsCheck.gameObject.SetActive(true);
+            buttonsCross.gameObject.SetActive(false);
+        }
     }
 }

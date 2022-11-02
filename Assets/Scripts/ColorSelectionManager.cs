@@ -16,7 +16,8 @@ public class ColorSelectionManager : MonoBehaviour
     private void Awake()
     {
         AudioSource paintDropSFX = GameObject.Find("Paint Drop SFX").GetComponent<AudioSource>();
-        AudioSource splashSFX = GameObject.Find("/Game Canvas/Tools Bar/Buttons/Splash SFX").GetComponent<AudioSource>();
+        AudioSource splashSFX = GameObject.Find("Splash SFX").GetComponent<AudioSource>();
+        //AudioSource splashSFX = GameObject.Find("/Game Canvas/Tools Bar/Buttons/Splash SFX").GetComponent<AudioSource>();
     }
     void Update()
     {
