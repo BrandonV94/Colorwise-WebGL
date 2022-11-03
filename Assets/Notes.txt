@@ -1,5 +1,6 @@
 Tasks
 1) Make new UI operational.
+
 2) Create simple coloring game mode.
 3) Consider allowing users to pick colors.
 

@@ -1,14 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 using TMPro;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
     [Header("Game Objects")]
-    // Check Button Test
     [SerializeField] GameObject checkButton;
     [SerializeField] GameObject buttonsCheck;
     [SerializeField] GameObject buttonsCross;
@@ -16,11 +14,9 @@ public class GameController : MonoBehaviour
     [SerializeField] GameObject mainImage;
     [SerializeField] public GameObject[] gamePieces;
     
-
-
     [Header("Text and Banners")]
     [SerializeField] GameObject congratulations;
-    [SerializeField] TextMeshProUGUI colorsNotUsedText;
+    [SerializeField] TextMeshProUGUI allColorsNotUsedText;
 
     [Header("Sound Effects")]
     [SerializeField] AudioSource completeSFX;
@@ -30,11 +26,17 @@ public class GameController : MonoBehaviour
     [SerializeField] int numUniquePieces = 0;
     [SerializeField] int delayCongratulations = 1;
     [SerializeField] int delayIncorrect = 1;
+    [SerializeField] bool isPulsing = false;
 
+    // Finds game objects in hierchy and sets them to appropriate variables.
     void Awake()
     {
+        checkButton = GameObject.Find("Check Button");
+        buttonsCheck = GameObject.Find("Check");
+        buttonsCross = GameObject.Find("Cross");
+        buttonsCross.gameObject.SetActive(false);
         congratulations = GameObject.Find("Congratulations Banner");
-        colorsNotUsedText = GameObject.Find("All Colors Not Used Text (TMP)")
+        allColorsNotUsedText = GameObject.Find("All Colors Not Used Text (TMP)")
             .GetComponent<TextMeshProUGUI>();
         mainImage = GameObject.Find("Main");
         gamePieces = GameObject.FindGameObjectsWithTag("PlayablePiece");
@@ -42,17 +44,18 @@ public class GameController : MonoBehaviour
         checkColors = FindObjectOfType<CheckColors>();
     }
 
+    // Sets specific game objects to inactive.
     private void Start()
     {
         congratulations.gameObject.SetActive(false);
-        colorsNotUsedText.gameObject.SetActive(false);
-        // Check button cross component set to inactive
+        allColorsNotUsedText.gameObject.SetActive(false);
         buttonsCross.gameObject.SetActive(false);
     }
 
+    // Checks all game pieces and determines if the game is complete.
     public void CheckGameOver()
     {
-        // Checks for any unique pieces.
+        // Checks game pieces for any unique pieces.
         foreach (var piece in gamePieces)
         {
             var pieceSR = piece.GetComponent<SpriteRenderer>();
@@ -60,6 +63,7 @@ public class GameController : MonoBehaviour
             if (unique.isPieceUnique == false)
             {
                 incorrectSFX.Play();
+                isPulsing = true;
                 StartCoroutine(Pulse(pieceSR));
             }
             else
@@ -82,7 +86,7 @@ public class GameController : MonoBehaviour
         numUniquePieces = 0;
     }
 
-    // Makes any non-unique piece pulse when checking for game results.
+    // Makes any non-unique pieces pulse when checking for game results.
     IEnumerator Pulse(SpriteRenderer pieceSR)
     {
         toggleCheckButton();
@@ -101,11 +105,12 @@ public class GameController : MonoBehaviour
         }
 
         pieceSR.sortingOrder = 0;
+        isPulsing = false;
         toggleCheckButton();
         yield break;    // Breaks the coroutine after flashing for a few seconds
     }
 
-    // Brings up the congratulation banner and plays compete jingle.
+    // Brings up the congratulation banner and plays complete jingle.
     void ActivateCongratulations()
     {
         completeSFX.Play();
@@ -115,18 +120,18 @@ public class GameController : MonoBehaviour
     void ActivateColorNotUsed()
     {
         incorrectSFX.Play();
-        colorsNotUsedText.gameObject.SetActive(true);
+        allColorsNotUsedText.gameObject.SetActive(true);
         Invoke("DeactivateColorsNotUsed", delayIncorrect);
     }
 
     void DeactivateColorsNotUsed()
     {
-        colorsNotUsedText.gameObject.SetActive(false);
+        allColorsNotUsedText.gameObject.SetActive(false);
     }
 
     void toggleCheckButton()
     {
-        if (buttonsCheck.activeSelf)
+        if(isPulsing)
         {
             checkButton.GetComponent<Image>().color = new Color(255,0,0);
             buttonsCheck.gameObject.SetActive(false);
