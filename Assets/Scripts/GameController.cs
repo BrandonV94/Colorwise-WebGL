@@ -28,28 +28,16 @@ public class GameController : MonoBehaviour
     [SerializeField] int delayIncorrect = 1;
     [SerializeField] bool isPulsing = false;
 
-    // Finds game objects in hierchy and sets them to appropriate variables.
+    
     void Awake()
     {
-        checkButton = GameObject.Find("Check Button");
-        buttonsCheck = GameObject.Find("Check");
-        buttonsCross = GameObject.Find("Cross");
-        buttonsCross.gameObject.SetActive(false);
-        congratulations = GameObject.Find("Congratulations Banner");
-        allColorsNotUsedText = GameObject.Find("All Colors Not Used Text (TMP)")
-            .GetComponent<TextMeshProUGUI>();
-        mainImage = GameObject.Find("Main");
-        gamePieces = GameObject.FindGameObjectsWithTag("PlayablePiece");
-        if(gamePieces.Length < 1) { Debug.Log("No pieces found! Check game pieces tag.");}
-        checkColors = FindObjectOfType<CheckColors>();
+        CheckInstantiatedGameObjects();
     }
 
-    // Sets specific game objects to inactive.
+    
     private void Start()
     {
-        congratulations.gameObject.SetActive(false);
-        allColorsNotUsedText.gameObject.SetActive(false);
-        buttonsCross.gameObject.SetActive(false);
+        DeactivateGameObjectsOnStart();
     }
 
     // Checks all game pieces and determines if the game is complete.
@@ -117,6 +105,7 @@ public class GameController : MonoBehaviour
         congratulations.gameObject.SetActive(true);
     }
 
+    // Brings up the Colors Not Used game object and plays the incorrect SFX.
     void ActivateColorNotUsed()
     {
         incorrectSFX.Play();
@@ -124,11 +113,13 @@ public class GameController : MonoBehaviour
         Invoke("DeactivateColorsNotUsed", delayIncorrect);
     }
 
+    // Called in ActivateColorNotUsed() to remove text.
     void DeactivateColorsNotUsed()
     {
         allColorsNotUsedText.gameObject.SetActive(false);
     }
 
+    // Toggles the Check Button's Check and Cross sign. 
     void toggleCheckButton()
     {
         if(isPulsing)
@@ -143,5 +134,39 @@ public class GameController : MonoBehaviour
             buttonsCheck.gameObject.SetActive(true);
             buttonsCross.gameObject.SetActive(false);
         }
+    }
+
+    // Sets game objects to variables and verifies nothing is missing.
+    void CheckInstantiatedGameObjects()
+    {
+        // Locates game objects and sets them to appropriate variables.
+        checkButton = GameObject.Find("Check Button");
+        buttonsCheck = GameObject.Find("Check");
+        buttonsCross = GameObject.Find("Cross");
+        congratulations = GameObject.Find("Congratulations Banner");
+        allColorsNotUsedText = GameObject.Find("All Colors Not Used Text (TMP)")
+            .GetComponent<TextMeshProUGUI>();
+        mainImage = GameObject.Find("Main");
+        gamePieces = GameObject.FindGameObjectsWithTag("PlayablePiece");
+        checkColors = FindObjectOfType<CheckColors>();
+        
+        // Checks all components are available. 
+        if (checkButton == null) { Debug.Log("Missing Check Button game object.");}
+        if (buttonsCheck == null) { Debug.Log("Missing Check game object."); }
+        if (buttonsCross == null) { Debug.Log("Missing Cross  game object."); }
+        if (congratulations == null) { Debug.Log("Missing Congratulations Banner game object."); }
+        if (allColorsNotUsedText == null) 
+        { Debug.Log("Missing All Colors Not Used Text (TMP) game object."); }
+        if (mainImage == null) { Debug.Log("Missing Main game object."); }
+        if (gamePieces.Length < 1) { Debug.Log("No pieces found! Check game pieces tag."); }
+        if (checkColors == null) { Debug.Log("Missing Check Button game object."); }
+    }
+
+    // Sets specific game objects to inactive.
+    void DeactivateGameObjectsOnStart()
+    {
+        congratulations.gameObject.SetActive(false);
+        allColorsNotUsedText.gameObject.SetActive(false);
+        buttonsCross.gameObject.SetActive(false);
     }
 }

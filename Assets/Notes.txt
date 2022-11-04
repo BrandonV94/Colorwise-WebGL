@@ -1,11 +1,15 @@
-Tasks
-1) Make new UI operational.
+--Main Tasks
+1) Look for art gallery looking game objects.
+2) Finish making all levels with new UI.
 
+
+-Tasks
+1) Make new UI operational.
 2) Create simple coloring game mode.
 3) Consider allowing users to pick colors.
 
 
-Idea For win screen.
+---Idea For win screen.---
 1) Screen UI disapears (art easel, palette, and any numerical values.)
 2) Have the screen clear and the picture frame go over the image.
 3) Congratulations printed on bottom or top.
