@@ -1,3 +1,11 @@
+/*
+ * The Color Selection Manager is a script used to select different colors in game 
+ * and allow users to change the color of a game piece that has a collider component.
+ * The script is also destroyed when the game has concluded and the completion screen 
+ * is activated.
+ * 
+ * Last update: 11/7/2022 
+ */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,19 +13,26 @@ using UnityEngine;
 public class ColorSelectionManager : MonoBehaviour
 {
     [Header("General")]
-    public Color[] colorList;
-    [SerializeField] Color curColor;
     [SerializeField] int colorCount;
+    [SerializeField] Color curColor;
+    public Color[] colorList;
 
     [Header("Sound Effects")]
     [SerializeField] AudioSource paintDropSFX;
     [SerializeField] AudioSource splashSFX;
 
+    // Game Controller Script
+    GameController gameController; 
+
     private void Awake()
     {
-        AudioSource paintDropSFX = GameObject.Find("Paint Drop SFX").GetComponent<AudioSource>();
-        AudioSource splashSFX = GameObject.Find("Splash SFX").GetComponent<AudioSource>();
-        //AudioSource splashSFX = GameObject.Find("/Game Canvas/Tools Bar/Buttons/Splash SFX").GetComponent<AudioSource>();
+        AudioSource paintDropSFX = GameObject.Find("Paint Drop SFX")
+            .GetComponent<AudioSource>();
+
+        AudioSource splashSFX = GameObject.Find("Splash SFX")
+            .GetComponent<AudioSource>();
+
+        gameController = FindObjectOfType<GameController>();
     }
     void Update()
     {
@@ -36,6 +51,9 @@ public class ColorSelectionManager : MonoBehaviour
                 splashSFX.PlayOneShot(splashSFX.clip);
             }
         }
+
+        // Stops users from being able to paint after game completion.
+        if(gameController.isGameOver) { Destroy(gameObject); }
     }
 
     public void Paint(int colorCode)

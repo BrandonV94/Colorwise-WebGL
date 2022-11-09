@@ -36,7 +36,7 @@ public class CheckColors : MonoBehaviour
     {
         LookForColorsUsed();
         colorsUsed.Clear();
-        numberOfColorsUsedText.text =  numOfColorsUsed + " / " + numOfColorsAvailable;
+        numberOfColorsUsedText.text =  numOfColorsUsed + "/" + numOfColorsAvailable;
         checkIfAllColorsUsed();
     }
 

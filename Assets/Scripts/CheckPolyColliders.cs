@@ -1,3 +1,8 @@
+/*
+ * The Check Poly(gons) Colliders is used to ensure every game piece under the 
+ * "Main" game object has a Polygon Collider component attached.
+ * 
+ */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

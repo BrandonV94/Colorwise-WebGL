@@ -1,3 +1,13 @@
+/*
+ *  Main script in charge of gameplay.
+ *  Task:
+ *  Make any specific components inactive im the hierarchy. 
+ *  Check for game complete conditions.
+ *  Activate any signs and banners based on specific conditions.
+ *  Toggles the sign on the Check Button based on specific conditions.
+ *  
+ *  Last Update: 11/9/22
+ */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,13 +17,13 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     [Header("Game Objects")]
-    [SerializeField] GameObject checkButton;
-    [SerializeField] GameObject buttonsCheck;
-    [SerializeField] GameObject buttonsCross;
-    [SerializeField] CheckColors checkColors;
+    [SerializeField] GameObject checkBtn;
+    [SerializeField] GameObject btnCheck;
+    [SerializeField] GameObject btnCross;
     [SerializeField] GameObject mainImage;
+    [SerializeField] GameObject completeAssets;
     [SerializeField] public GameObject[] gamePieces;
-    
+
     [Header("Text and Banners")]
     [SerializeField] GameObject congratulations;
     [SerializeField] TextMeshProUGUI allColorsNotUsedText;
@@ -24,11 +34,16 @@ public class GameController : MonoBehaviour
 
     [Header("Conditions")]
     [SerializeField] int numUniquePieces = 0;
-    [SerializeField] int delayCongratulations = 1;
+    [SerializeField] int delayStageComplete = 1;
     [SerializeField] int delayIncorrect = 1;
     [SerializeField] bool isPulsing = false;
+    [SerializeField] public bool isGameOver = false;
 
-    
+    [Header("Scripts")]
+    [SerializeField] CheckColors checkColors;
+    [SerializeField] CompleteClearScreen completeClearScreen;
+
+
     void Awake()
     {
         CheckInstantiatedGameObjects();
@@ -68,7 +83,10 @@ public class GameController : MonoBehaviour
         // Checks if all game pieces are unique and all colors are being used.
         if (numUniquePieces == gamePieces.Length && checkColors.allColorsUsed)
         {
-            Invoke("ActivateCongratulations", delayCongratulations);
+            completeSFX.Play();
+
+            ActivateCongratulations();
+            Invoke("BeginGameCompleteSequence", delayStageComplete);
         }
 
         numUniquePieces = 0;
@@ -98,10 +116,18 @@ public class GameController : MonoBehaviour
         yield break;    // Breaks the coroutine after flashing for a few seconds
     }
 
+    void BeginGameCompleteSequence()
+    {
+        completeClearScreen.activateMovement = true;
+    }
+
     // Brings up the congratulation banner and plays complete jingle.
     void ActivateCongratulations()
     {
-        completeSFX.Play();
+        isGameOver = true;
+
+        checkBtn.SetActive(false);
+        completeAssets.gameObject.SetActive(true);
         congratulations.gameObject.SetActive(true);
     }
 
@@ -124,49 +150,56 @@ public class GameController : MonoBehaviour
     {
         if(isPulsing)
         {
-            checkButton.GetComponent<Image>().color = new Color(255,0,0);
-            buttonsCheck.gameObject.SetActive(false);
-            buttonsCross.gameObject.SetActive(true);
+            checkBtn.GetComponent<Image>().color = new Color(255,0,0);
+            btnCheck.gameObject.SetActive(false);
+            btnCross.gameObject.SetActive(true);
         }
         else
         {
-            checkButton.GetComponent<Image>().color = Color.green;
-            buttonsCheck.gameObject.SetActive(true);
-            buttonsCross.gameObject.SetActive(false);
+            checkBtn.GetComponent<Image>().color = Color.green;
+            btnCheck.gameObject.SetActive(true);
+            btnCross.gameObject.SetActive(false);
         }
+    }
+
+    // Sets specific game objects to inactive on game start.
+    void DeactivateGameObjectsOnStart()
+    {
+        congratulations.gameObject.SetActive(false);
+        allColorsNotUsedText.gameObject.SetActive(false);
+        btnCross.gameObject.SetActive(false);
+        // TODO Remove comment 
+        //completeAssets.gameObject.SetActive(false);
     }
 
     // Sets game objects to variables and verifies nothing is missing.
     void CheckInstantiatedGameObjects()
     {
         // Locates game objects and sets them to appropriate variables.
-        checkButton = GameObject.Find("Check Button");
-        buttonsCheck = GameObject.Find("Check");
-        buttonsCross = GameObject.Find("Cross");
+        checkBtn = GameObject.Find("Check Button");
+        btnCheck = GameObject.Find("Check Sprite");
+        btnCross = GameObject.Find("Cross Sprite");
         congratulations = GameObject.Find("Congratulations Banner");
         allColorsNotUsedText = GameObject.Find("All Colors Not Used Text (TMP)")
             .GetComponent<TextMeshProUGUI>();
         mainImage = GameObject.Find("Main");
         gamePieces = GameObject.FindGameObjectsWithTag("PlayablePiece");
-        checkColors = FindObjectOfType<CheckColors>();
+        completeAssets = GameObject.Find("Complete Assets");
         
+
+        // Find re;ated scripts
+        checkColors = FindObjectOfType<CheckColors>();
+        completeClearScreen = FindObjectOfType<CompleteClearScreen>();
+
         // Checks all components are available. 
-        if (checkButton == null) { Debug.Log("Missing Check Button game object.");}
-        if (buttonsCheck == null) { Debug.Log("Missing Check game object."); }
-        if (buttonsCross == null) { Debug.Log("Missing Cross  game object."); }
+        if (checkBtn == null) { Debug.Log("Missing Check Button game object."); }
+        if (btnCheck == null) { Debug.Log("Missing Check Sprite game object."); }
+        if (btnCross == null) { Debug.Log("Missing Cross Sprite game object."); }
         if (congratulations == null) { Debug.Log("Missing Congratulations Banner game object."); }
-        if (allColorsNotUsedText == null) 
+        if (allColorsNotUsedText == null)
         { Debug.Log("Missing All Colors Not Used Text (TMP) game object."); }
         if (mainImage == null) { Debug.Log("Missing Main game object."); }
         if (gamePieces.Length < 1) { Debug.Log("No pieces found! Check game pieces tag."); }
-        if (checkColors == null) { Debug.Log("Missing Check Button game object."); }
-    }
-
-    // Sets specific game objects to inactive.
-    void DeactivateGameObjectsOnStart()
-    {
-        congratulations.gameObject.SetActive(false);
-        allColorsNotUsedText.gameObject.SetActive(false);
-        buttonsCross.gameObject.SetActive(false);
+        if (checkColors == null) { Debug.Log("Missing Check Colors script."); }
     }
 }

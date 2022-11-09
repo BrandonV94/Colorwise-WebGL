@@ -1,6 +1,7 @@
 --Main Tasks
-1) Look for art gallery looking game objects.
-2) Finish making all levels with new UI.
+
+2) Make correct sound play as soon as you click the button.
+3) Finish making all levels with new UI.
 
 
 -Tasks
@@ -10,7 +11,8 @@
 
 
 ---Idea For win screen.---
-1) Screen UI disapears (art easel, palette, and any numerical values.)
-2) Have the screen clear and the picture frame go over the image.
-3) Congratulations printed on bottom or top.
+1) Screen UI disapears (art easel, palette, and any numerical values.) DONE
+2) Have the screen clear and the picture frame go over the image. DONE
+3) Make the framed picture appear in an art gallery
+4) Congratulations printed on bottom or top.
 
