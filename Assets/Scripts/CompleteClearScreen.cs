@@ -23,6 +23,7 @@ public class CompleteClearScreen : MonoBehaviour
     [SerializeField] float transition = 1f;
     [SerializeField] float delayArtSuppliesMovement = 1f;
     [SerializeField] float delayCompletedStageMovement = 1f;
+    [SerializeField] float delayCongratulation = 1f;
 
     [Header("Conditions")]
     [SerializeField] public bool activateMovement = false;
@@ -59,7 +60,12 @@ public class CompleteClearScreen : MonoBehaviour
     void SetupCompletedStage()
     {
         LeanTween.moveY(redCurtains, 0f, transition); 
-        LeanTween.moveY(ropeStantion, -4.34f, transition); 
+        LeanTween.moveY(ropeStantion, -4.34f, transition);
+        Invoke("DelayedCongratulations", delayCongratulation);
+    }
+
+    void DelayedCongratulations()
+    {
         LeanTween.moveX(congratulations, 0, transition);
     }
 

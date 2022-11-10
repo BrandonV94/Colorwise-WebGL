@@ -1,3 +1,8 @@
+/*
+ * Script used to traverse the scenes saved in build settings.
+ * 
+ * Last update: 11/10/22
+ */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,7 +35,6 @@ public class SceneLoader : MonoBehaviour
     {
         var level = btn.GetComponentInChildren<TMP_Text>().text;
         int sceneIndex = int.Parse(level) + sceneOffSet;
-        Debug.Log("Level = " + level + "Index value = " + sceneIndex);
         if(sceneIndex < SceneManager.sceneCountInBuildSettings)
         {
             SceneManager.LoadScene(sceneIndex);
@@ -43,7 +47,6 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        Debug.Log("Total scenes available =" + SceneManager.sceneCount);
         var currIndex = SceneManager.GetActiveScene().buildIndex;
         if(SceneManager.sceneCountInBuildSettings > currIndex + 1)
         {

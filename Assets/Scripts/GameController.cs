@@ -6,7 +6,7 @@
  *  Activate any signs and banners based on specific conditions.
  *  Toggles the sign on the Check Button based on specific conditions.
  *  
- *  Last Update: 11/9/22
+ *  Last Update: 11/10/22
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -77,6 +77,7 @@ public class GameController : MonoBehaviour
 
         if (!checkColors.allColorsUsed)
         {
+            incorrectSFX.Play();
             ActivateColorNotUsed();
         }
         
@@ -134,7 +135,6 @@ public class GameController : MonoBehaviour
     // Brings up the Colors Not Used game object and plays the incorrect SFX.
     void ActivateColorNotUsed()
     {
-        incorrectSFX.Play();
         allColorsNotUsedText.gameObject.SetActive(true);
         Invoke("DeactivateColorsNotUsed", delayIncorrect);
     }
@@ -168,8 +168,8 @@ public class GameController : MonoBehaviour
         congratulations.gameObject.SetActive(false);
         allColorsNotUsedText.gameObject.SetActive(false);
         btnCross.gameObject.SetActive(false);
-        // TODO Remove comment 
-        //completeAssets.gameObject.SetActive(false);
+
+        completeAssets.gameObject.SetActive(false);
     }
 
     // Sets game objects to variables and verifies nothing is missing.
@@ -192,14 +192,15 @@ public class GameController : MonoBehaviour
         completeClearScreen = FindObjectOfType<CompleteClearScreen>();
 
         // Checks all components are available. 
-        if (checkBtn == null) { Debug.Log("Missing Check Button game object."); }
-        if (btnCheck == null) { Debug.Log("Missing Check Sprite game object."); }
-        if (btnCross == null) { Debug.Log("Missing Cross Sprite game object."); }
-        if (congratulations == null) { Debug.Log("Missing Congratulations Banner game object."); }
+        if (checkBtn == null) { Debug.LogError("Missing Check Button game object."); }
+        if (btnCheck == null) { Debug.LogError("Missing Check Sprite game object."); }
+        if (btnCross == null) { Debug.LogError("Missing Cross Sprite game object."); }
+        if (congratulations == null) 
+            { Debug.LogError("Missing Congratulations Banner game object."); }
         if (allColorsNotUsedText == null)
-        { Debug.Log("Missing All Colors Not Used Text (TMP) game object."); }
-        if (mainImage == null) { Debug.Log("Missing Main game object."); }
-        if (gamePieces.Length < 1) { Debug.Log("No pieces found! Check game pieces tag."); }
-        if (checkColors == null) { Debug.Log("Missing Check Colors script."); }
+            { Debug.LogError("Missing All Colors Not Used Text (TMP) game object."); }
+        if (mainImage == null) { Debug.LogError("Missing Main game object."); }
+        if (gamePieces.Length < 1) { Debug.LogError("No pieces found! Check game pieces tag."); }
+        if (checkColors == null) { Debug.LogError("Missing Check Colors script."); }
     }
 }

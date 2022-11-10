@@ -45,10 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 818656013642f0c4d9632b2aba0341bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkButton: {fileID: 0}
-  buttonsCheck: {fileID: 0}
-  buttonsCross: {fileID: 0}
+  checkBtn: {fileID: 0}
+  btnCheck: {fileID: 0}
+  btnCross: {fileID: 0}
   mainImage: {fileID: 0}
+  completeAssets: {fileID: 0}
   gamePieces:
   - {fileID: 0}
   - {fileID: 0}
@@ -57,16 +58,17 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  checkColors: {fileID: 0}
-  gameOverClearScreen: {fileID: 0}
   congratulations: {fileID: 0}
   allColorsNotUsedText: {fileID: 0}
   completeSFX: {fileID: 5084869852282416710}
   incorrectSFX: {fileID: 1348057494875817294}
   numUniquePieces: 0
-  delayCongratulations: 1
+  delayStageComplete: 1
   delayIncorrect: 3
   isPulsing: 0
+  isGameOver: 0
+  checkColors: {fileID: 0}
+  completeClearScreen: {fileID: 0}
 --- !u!1001 &4962889346709028258
 PrefabInstance:
   m_ObjectHideFlags: 0
