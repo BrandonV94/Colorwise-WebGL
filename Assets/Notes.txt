@@ -1,11 +1,15 @@
 -- Main Tasks
-
-2) Make correct sound play as soon as you click the button.
-3) Finish making all levels with new UI.
+1) Remake the main menu and level selection scenes.
+2) Make a settings scene.
 
 
 - Ideas
-1) Make new UI operational.
+1) Make new UI operational. DONE
 2) Create simple coloring game mode.
 3) Consider allowing users to pick colors.
+4) Merge the Main Menu and Level selection into single scene with transitions.
 
+
+- Settings idea
+1) Have settings slide into game are.
+2) Back button takes you back to game or original menu.

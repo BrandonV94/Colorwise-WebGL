@@ -6,7 +6,7 @@
  *  Activate any signs and banners based on specific conditions.
  *  Toggles the sign on the Check Button based on specific conditions.
  *  
- *  Last Update: 11/10/22
+ *  Last Update: 11/16/22
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -185,9 +185,14 @@ public class GameController : MonoBehaviour
         mainImage = GameObject.Find("Main");
         gamePieces = GameObject.FindGameObjectsWithTag("PlayablePiece");
         completeAssets = GameObject.Find("Complete Assets");
-        
 
-        // Find re;ated scripts
+        // Find game SFX
+        completeSFX = GameObject.Find("Important GameObject/SFX Game Objects/Complete SFX")
+            .GetComponent<AudioSource>();
+        incorrectSFX = GameObject.Find("Important GameObject/SFX Game Objects/Incorrect SFX")
+            .GetComponent<AudioSource>();
+
+        // Find related scripts
         checkColors = FindObjectOfType<CheckColors>();
         completeClearScreen = FindObjectOfType<CompleteClearScreen>();
 
