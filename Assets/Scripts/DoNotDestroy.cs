@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MusicPlayer : MonoBehaviour
+public class DoNotDestroy : MonoBehaviour
 {
-    int numMusicPlayers = 0;
+    int NotToDestroy = 0; 
+    // Start is called before the first frame update
     void Awake()
     {
-        numMusicPlayers = FindObjectsOfType<MusicPlayer>().Length;
-        if(numMusicPlayers > 1)
+        NotToDestroy = FindObjectsOfType<DoNotDestroy>().Length;
+        if (NotToDestroy > 1)
         {
             Destroy(gameObject);
         }
