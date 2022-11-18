@@ -1,3 +1,9 @@
+/*
+ * Script used to control the in game volume settings. 
+ * Script recieves inital settings and values from the PlayerPrefsController.
+ * 
+ * Last update: 11/18/22
+ */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,11 +20,11 @@ public class SettingsController : MonoBehaviour
     [SerializeField] const float DEFAULT_SFX_VOLUME = 1f;
 
     [Header("Audio Components")]
-    [SerializeField] AudioPlayer musicPlayer;
-    [SerializeField] AudioPlayer splashSFX;
-    [SerializeField] AudioPlayer paintDropSFX;
-    [SerializeField] AudioPlayer incorrectSFX;
-    [SerializeField] AudioPlayer completeSFX;
+    [SerializeField] MusicAudioPlayer musicPlayer;
+    [SerializeField] SFXAudioPlayer splashSFX;
+    [SerializeField] SFXAudioPlayer paintDropSFX;
+    [SerializeField] SFXAudioPlayer incorrectSFX;
+    [SerializeField] SFXAudioPlayer completeSFX;
 
 
     void Awake()
@@ -30,44 +36,63 @@ public class SettingsController : MonoBehaviour
         sfxSlider = GameObject.Find("SFX Volume/SFX Slider").GetComponent<Slider>();
     }
 
+    private void Start()
+    {
+        musicSlider.value = PlayerPrefsController.GetMasterMusicVolume();
+        sfxSlider.value = PlayerPrefsController.GetMasterSFXVolume();
+    }
 
     void Update()
     {
         if (sfxSlider && musicSlider)
         {
-            musicPlayer.SetVolume(musicSlider.value);
-            splashSFX.SetVolume(sfxSlider.value);
-            paintDropSFX.SetVolume(sfxSlider.value);
-            incorrectSFX.SetVolume(sfxSlider.value);
-            completeSFX.SetVolume(sfxSlider.value);
+            musicPlayer.SetMusicVolume(musicSlider.value);
+            splashSFX.SetSFXVolume(sfxSlider.value);
+            paintDropSFX.SetSFXVolume(sfxSlider.value);
+            incorrectSFX.SetSFXVolume(sfxSlider.value);
+            completeSFX.SetSFXVolume(sfxSlider.value);
         }
+    }
+
+    // Saves the current volume to PlayerPrefsController. 
+    public void SaveAndReturn()
+    {
+        Debug.Log("Saving to player prefs.");
+        Debug.Log("Music Volume: "+PlayerPrefsController.GetMasterMusicVolume());
+        Debug.Log("SFX Volume: " + PlayerPrefsController.GetMasterSFXVolume());
+        PlayerPrefsController.SetMasterMusicVolume(musicSlider.value);
+        PlayerPrefsController.SetMasterSFXVolume(sfxSlider.value);
+        Debug.Log("Verifying save.");
+        Debug.Log("Music Volume: " + PlayerPrefsController.GetMasterMusicVolume());
+        Debug.Log("SFX Volume: " + PlayerPrefsController.GetMasterSFXVolume());
     }
 
     void FindAllAudioPlayers()
     {
-        musicPlayer = GameObject.Find("Important GameObject/Music Player")
-            .GetComponent<AudioPlayer>();
+        musicPlayer = GameObject.FindGameObjectWithTag("Music")
+            .GetComponent<MusicAudioPlayer>();
 
-        splashSFX = GameObject.Find("Important GameObject/SFX Game Objects/Splash SFX")
-            .GetComponent<AudioPlayer>();
+        splashSFX = GameObject.FindGameObjectWithTag("SplashSFX")
+            .GetComponent<SFXAudioPlayer>();
 
-        paintDropSFX = GameObject.Find("Important GameObject/SFX Game Objects/Paint Drop SFX")
-            .GetComponent<AudioPlayer>();
+        paintDropSFX = GameObject.FindGameObjectWithTag("PaintDropSFX")
+            .GetComponent<SFXAudioPlayer>();
 
-        incorrectSFX = GameObject.Find("Important GameObject/SFX Game Objects/Incorrect SFX")
-            .GetComponent<AudioPlayer>();
+        incorrectSFX = GameObject.FindGameObjectWithTag("IncorrectSFX")
+            .GetComponent<SFXAudioPlayer>();
 
-        completeSFX = GameObject.Find("Important GameObject/SFX Game Objects/Complete SFX")
-            .GetComponent<AudioPlayer>();
+        completeSFX = GameObject.FindGameObjectWithTag("CompleteSFX")
+            .GetComponent<SFXAudioPlayer>();
     }
 
+    // Method that will be connected to a button to automatically mute all sounds.
     void SetAllVolumeToDefaults()
     {
-        musicPlayer.SetVolume(DEFAULT_MUSIC_VOLUME);
-        splashSFX.SetVolume(DEFAULT_SFX_VOLUME);
-        paintDropSFX.SetVolume(DEFAULT_SFX_VOLUME);
-        incorrectSFX.SetVolume(DEFAULT_SFX_VOLUME);
-        completeSFX.SetVolume(DEFAULT_SFX_VOLUME);
+        musicPlayer.SetMusicVolume(DEFAULT_MUSIC_VOLUME);
+        splashSFX.SetSFXVolume(DEFAULT_SFX_VOLUME);
+        paintDropSFX.SetSFXVolume(DEFAULT_SFX_VOLUME);
+        incorrectSFX.SetSFXVolume(DEFAULT_SFX_VOLUME);
+        completeSFX.SetSFXVolume(DEFAULT_SFX_VOLUME);
     }
 
 }

@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - PlayablePiece
+  - SplashSFX
+  - PaintDropSFX
+  - IncorrectSFX
+  - CompleteSFX
+  - Music
   layers:
   - Default
   - TransparentFX

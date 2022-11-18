@@ -11,5 +11,5 @@
 
 
 - Settings idea
-1) Have settings slide into game are.
+1) Have settings slide into game area.
 2) Back button takes you back to game or original menu.
