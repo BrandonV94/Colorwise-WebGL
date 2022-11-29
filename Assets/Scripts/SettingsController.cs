@@ -2,7 +2,7 @@
  * Script used to control the in game volume settings. 
  * Script recieves inital settings and values from the PlayerPrefsController.
  * 
- * Last update: 11/18/22
+ * Last update: 11/22/22
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +11,7 @@ using UnityEngine.UI;
 
 public class SettingsController : MonoBehaviour
 {
+    // Script
     PlayerPrefsController playerPrefsController;
 
     [Header("Volume Setings")]
@@ -26,14 +27,20 @@ public class SettingsController : MonoBehaviour
     [SerializeField] SFXAudioPlayer incorrectSFX;
     [SerializeField] SFXAudioPlayer completeSFX;
 
+    // Canvas
+   [SerializeField] GameObject settingsCanvas;
 
     void Awake()
     {
         playerPrefsController = FindObjectOfType<PlayerPrefsController>();
+        settingsCanvas = GameObject.FindGameObjectWithTag("Settings");
         FindAllAudioPlayers();
 
-        musicSlider = GameObject.Find("Music Volume/Music Slider").GetComponent<Slider>();
-        sfxSlider = GameObject.Find("SFX Volume/SFX Slider").GetComponent<Slider>();
+        musicSlider = GameObject.FindGameObjectWithTag("MusicSlider")
+            .GetComponent<Slider>();
+
+        sfxSlider = GameObject.FindGameObjectWithTag("SFXSlider")
+            .GetComponent<Slider>();
     }
 
     private void Start()
@@ -57,14 +64,17 @@ public class SettingsController : MonoBehaviour
     // Saves the current volume to PlayerPrefsController. 
     public void SaveAndReturn()
     {
-        Debug.Log("Saving to player prefs.");
-        Debug.Log("Music Volume: "+PlayerPrefsController.GetMasterMusicVolume());
-        Debug.Log("SFX Volume: " + PlayerPrefsController.GetMasterSFXVolume());
+        // Saves volume settings to PlayerPrefsController
         PlayerPrefsController.SetMasterMusicVolume(musicSlider.value);
         PlayerPrefsController.SetMasterSFXVolume(sfxSlider.value);
-        Debug.Log("Verifying save.");
-        Debug.Log("Music Volume: " + PlayerPrefsController.GetMasterMusicVolume());
-        Debug.Log("SFX Volume: " + PlayerPrefsController.GetMasterSFXVolume());
+
+        // Deactivates Settings canvas and moves up.
+        // Up canvas pos: X = -0.13921 , Y = 11
+        Debug.Log("Saving and closing settings.");
+        LeanTween.moveY(settingsCanvas, 11f, 1f);
+
+        // Delay deactivation
+        Invoke("DeactivateSettings", 2);
     }
 
     void FindAllAudioPlayers()
@@ -86,7 +96,7 @@ public class SettingsController : MonoBehaviour
     }
 
     // Method that will be connected to a button to automatically mute all sounds.
-    void SetAllVolumeToDefaults()
+    public void SetAllVolumeToDefaults()
     {
         musicPlayer.SetMusicVolume(DEFAULT_MUSIC_VOLUME);
         splashSFX.SetSFXVolume(DEFAULT_SFX_VOLUME);
@@ -95,4 +105,8 @@ public class SettingsController : MonoBehaviour
         completeSFX.SetSFXVolume(DEFAULT_SFX_VOLUME);
     }
 
+    void DeactivateSettings()
+    {
+        settingsCanvas.gameObject.SetActive(false);
+    }
 }

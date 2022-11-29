@@ -10,6 +10,9 @@ TagManager:
   - IncorrectSFX
   - CompleteSFX
   - Music
+  - Settings
+  - MusicSlider
+  - SFXSlider
   layers:
   - Default
   - TransparentFX

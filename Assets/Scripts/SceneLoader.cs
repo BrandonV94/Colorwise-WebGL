@@ -1,7 +1,7 @@
 /*
  * Script used to traverse the scenes saved in build settings.
  * 
- * Last update: 11/10/22
+ * Last update: 11/22/22
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -13,8 +13,17 @@ using TMPro;
 public class SceneLoader : MonoBehaviour
 {
     [Tooltip("Only change if additional menu scenes added.")]
-    [SerializeField] int sceneOffSet = 2; 
-    
+    [SerializeField] int sceneOffSet = 2;
+
+    // Settings Canvas
+    GameObject settingCanvas;
+
+    private void Start()
+    {
+        settingCanvas = GameObject.FindGameObjectWithTag("Settings");
+        settingCanvas.gameObject.SetActive(false);
+    }
+
     public void LoadMainMenu()
     {
         SceneManager.LoadScene(1); // 1 = main menu scene.
@@ -28,7 +37,13 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadSettings()
     {
-        Debug.Log("Need to make new settings scene.");
+        Debug.Log("Setting incoming!");
+        /*
+         * Coordinates for middle of screen 
+         * X = -0.13921 Y = 0.13361
+         */
+        settingCanvas.gameObject.SetActive(true);
+        LeanTween.moveY(settingCanvas, 0.013361f, 1f);
     }
 
     public void LoadLevel(Button btn)
