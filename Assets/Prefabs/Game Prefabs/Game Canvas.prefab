@@ -1048,6 +1048,10 @@ PrefabInstance:
       value: Check Button
       objectReference: {fileID: 0}
     - target: {fileID: 277261370329391463, guid: 4c1bd5fb1ba5e4d4c9fd85fd48f97f7c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 277261370329391463, guid: 4c1bd5fb1ba5e4d4c9fd85fd48f97f7c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 0}

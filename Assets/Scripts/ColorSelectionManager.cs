@@ -21,8 +21,9 @@ public class ColorSelectionManager : MonoBehaviour
     [SerializeField] AudioSource paintDropSFX;
     [SerializeField] AudioSource splashSFX;
 
-    // Game Controller Script
-    GameController gameController; 
+    // Scripts
+    GameController gameController;
+    SettingsController settingsController;
 
     private void Awake()
     {
@@ -33,22 +34,30 @@ public class ColorSelectionManager : MonoBehaviour
             .GetComponent<AudioSource>();
 
         gameController = FindObjectOfType<GameController>();
+        settingsController = FindObjectOfType<SettingsController>();
     }
     void Update()
     {
-        curColor = colorList[colorCount];
-
-        var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        RaycastHit2D hit = Physics2D.Raycast(ray, -Vector2.up);
-
-        if (Input.GetMouseButtonDown(0))
+        if (settingsController.isGamePaused)
         {
-            if(hit.collider != null)
+            return;
+        }
+        else
+        {
+            curColor = colorList[colorCount];
+
+            var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(ray, -Vector2.up);
+
+            if (Input.GetMouseButtonDown(0))
             {
-                // Gets the sprite renderer components from the sprite selected.
-                SpriteRenderer sp = hit.collider.gameObject.GetComponent<SpriteRenderer>();
-                sp.color = curColor;
-                splashSFX.PlayOneShot(splashSFX.clip);
+                if (hit.collider != null)
+                {
+                    // Gets the sprite renderer components from the sprite selected.
+                    SpriteRenderer sp = hit.collider.gameObject.GetComponent<SpriteRenderer>();
+                    sp.color = curColor;
+                    splashSFX.PlayOneShot(splashSFX.clip);
+                }
             }
         }
 

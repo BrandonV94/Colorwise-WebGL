@@ -21,12 +21,21 @@ public class SceneLoader : MonoBehaviour
     private void Start()
     {
         settingCanvas = GameObject.FindGameObjectWithTag("Settings");
-        settingCanvas.gameObject.SetActive(false);
+        if(SceneManager.GetActiveScene().name == "Settings" ||
+            SceneManager.GetActiveScene().name == "Place Holder")
+        {
+            return;
+        }
+        else
+        {
+            settingCanvas.gameObject.SetActive(false);
+        }
+            
     }
 
     public void LoadMainMenu()
     {
-        SceneManager.LoadScene(1); // 1 = main menu scene.
+        SceneManager.LoadScene(1); // 1 = Main Menu scene.
     }
 
     public void QuitApplication()
@@ -37,7 +46,6 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadSettings()
     {
-        Debug.Log("Setting incoming!");
         /*
          * Coordinates for middle of screen 
          * X = -0.13921 Y = 0.13361
@@ -71,5 +79,10 @@ public class SceneLoader : MonoBehaviour
         {
             SceneManager.LoadScene("Place Holder");
         }
+    }
+
+    public void SettingsScene()
+    {
+        SceneManager.LoadScene(2); // 2 = Settings scene.
     }
 }

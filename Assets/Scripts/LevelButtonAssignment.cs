@@ -1,6 +1,8 @@
 /*
  * Script used to assign all buttons in level select menu to the
  * SceneLoader method LoadLevel().
+ * 
+ * Last update: 11/30/22
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -16,6 +18,10 @@ public class LevelButtonAssignment : MonoBehaviour
 
         foreach(var btn in buttons)
         {
+            // Makes sure Settings Button isn't assigned a level.
+            if (btn.name == "Settings Button")
+                return;
+
             btn.onClick.AddListener(delegate ()
             {
                 sceneLoader.LoadLevel(btn);

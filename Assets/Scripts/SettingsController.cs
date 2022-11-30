@@ -14,6 +14,10 @@ public class SettingsController : MonoBehaviour
     // Script
     PlayerPrefsController playerPrefsController;
 
+    [Header("Settings Buttons")]
+    [SerializeField] Button saveBtn;
+    [SerializeField] Button defaultBtn;
+
     [Header("Volume Setings")]
     [SerializeField] Slider musicSlider;
     [SerializeField] Slider sfxSlider;
@@ -27,8 +31,11 @@ public class SettingsController : MonoBehaviour
     [SerializeField] SFXAudioPlayer incorrectSFX;
     [SerializeField] SFXAudioPlayer completeSFX;
 
+    [Header("Conditions")]
+    public bool isGamePaused = false;
+
     // Canvas
-   [SerializeField] GameObject settingsCanvas;
+   GameObject settingsCanvas;
 
     void Awake()
     {
@@ -41,12 +48,19 @@ public class SettingsController : MonoBehaviour
 
         sfxSlider = GameObject.FindGameObjectWithTag("SFXSlider")
             .GetComponent<Slider>();
+
+        saveBtn = GameObject.Find("Save Button").GetComponent<Button>();
+        defaultBtn = GameObject.Find("Mute All Button").GetComponent<Button>();
+    }
+
+    private void OnEnable()
+    {
+        isGamePaused = true;
     }
 
     private void Start()
     {
-        musicSlider.value = PlayerPrefsController.GetMasterMusicVolume();
-        sfxSlider.value = PlayerPrefsController.GetMasterSFXVolume();
+        AssignSettingButtons();
     }
 
     void Update()
@@ -61,6 +75,11 @@ public class SettingsController : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        isGamePaused = false;
+    }
+
     // Saves the current volume to PlayerPrefsController. 
     public void SaveAndReturn()
     {
@@ -70,11 +89,25 @@ public class SettingsController : MonoBehaviour
 
         // Deactivates Settings canvas and moves up.
         // Up canvas pos: X = -0.13921 , Y = 11
-        Debug.Log("Saving and closing settings.");
         LeanTween.moveY(settingsCanvas, 11f, 1f);
 
         // Delay deactivation
-        Invoke("DeactivateSettings", 2);
+        Invoke("DeactivateSettings", 1);
+    }
+
+    // Method that will be connected to a button to automatically mute all sounds.
+    public void SetAllVolumeToDefaults()
+    {
+        musicPlayer.SetMusicVolume(DEFAULT_MUSIC_VOLUME);
+        splashSFX.SetSFXVolume(DEFAULT_SFX_VOLUME);
+        paintDropSFX.SetSFXVolume(DEFAULT_SFX_VOLUME);
+        incorrectSFX.SetSFXVolume(DEFAULT_SFX_VOLUME);
+        completeSFX.SetSFXVolume(DEFAULT_SFX_VOLUME);
+    }
+
+    void DeactivateSettings()
+    {
+        settingsCanvas.gameObject.SetActive(false);
     }
 
     void FindAllAudioPlayers()
@@ -95,18 +128,20 @@ public class SettingsController : MonoBehaviour
             .GetComponent<SFXAudioPlayer>();
     }
 
-    // Method that will be connected to a button to automatically mute all sounds.
-    public void SetAllVolumeToDefaults()
+    private void AssignSettingButtons()
     {
-        musicPlayer.SetMusicVolume(DEFAULT_MUSIC_VOLUME);
-        splashSFX.SetSFXVolume(DEFAULT_SFX_VOLUME);
-        paintDropSFX.SetSFXVolume(DEFAULT_SFX_VOLUME);
-        incorrectSFX.SetSFXVolume(DEFAULT_SFX_VOLUME);
-        completeSFX.SetSFXVolume(DEFAULT_SFX_VOLUME);
-    }
+        musicSlider.value = PlayerPrefsController.GetMasterMusicVolume();
+        sfxSlider.value = PlayerPrefsController.GetMasterSFXVolume();
 
-    void DeactivateSettings()
-    {
-        settingsCanvas.gameObject.SetActive(false);
+        // Assign Buttons
+        saveBtn.onClick.AddListener(delegate ()
+        {
+            SaveAndReturn();
+        });
+
+        defaultBtn.onClick.AddListener(delegate ()
+        {
+            SetAllVolumeToDefaults();
+        });
     }
 }
