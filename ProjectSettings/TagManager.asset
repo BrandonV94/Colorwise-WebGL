@@ -13,6 +13,8 @@ TagManager:
   - Settings
   - MusicSlider
   - SFXSlider
+  - Level
+  - Background
   layers:
   - Default
   - TransparentFX

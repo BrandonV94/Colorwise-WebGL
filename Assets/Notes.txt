@@ -1,6 +1,5 @@
 -- Main Tasks
 1) Remake the main menu and level selection scenes.
-2) Make a settings scene.
 
 
 - Ideas
@@ -10,6 +9,3 @@
 4) Merge the Main Menu and Level selection into single scene with transitions.
 
 
-- Settings idea
-1) Have settings slide into game area.
-2) Back button takes you back to game or original menu.

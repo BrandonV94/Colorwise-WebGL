@@ -1,7 +1,7 @@
 /*
  * Script used to traverse the scenes saved in build settings.
  * 
- * Last update: 11/22/22
+ * Last update: 12/7/22
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -12,36 +12,37 @@ using TMPro;
 
 public class SceneLoader : MonoBehaviour
 {
+    [Header("Scene Setings")]
     [Tooltip("Only change if additional menu scenes added.")]
     [SerializeField] int sceneOffSet = 2;
 
+    [Header("Button Controls")]
+    [Tooltip("Duration in seconds")]
+    [SerializeField] float duration = 2;
     // Settings Canvas
     GameObject settingCanvas;
 
+
     private void Start()
     {
-        settingCanvas = GameObject.FindGameObjectWithTag("Settings");
+        /*
         if(SceneManager.GetActiveScene().name == "Settings" ||
-            SceneManager.GetActiveScene().name == "Place Holder")
+            SceneManager.GetActiveScene().name == "Place Holder" ||
+            SceneManager.GetActiveScene().name == "Main Menu")
         {
             return;
         }
         else
         {
+            settingCanvas = GameObject.FindGameObjectWithTag("Settings");
             settingCanvas.gameObject.SetActive(false);
         }
-            
+        */
     }
 
     public void LoadMainMenu()
     {
         SceneManager.LoadScene(1); // 1 = Main Menu scene.
-    }
-
-    public void QuitApplication()
-    {
-        Debug.Log("Closing application.");
-        Application.Quit();
     }
 
     public void LoadSettings()
@@ -84,5 +85,24 @@ public class SceneLoader : MonoBehaviour
     public void SettingsScene()
     {
         SceneManager.LoadScene(2); // 2 = Settings scene.
+    }
+
+    public void StartGame()
+    {
+        var startBtn = GameObject.Find("Start Button")
+            .GetComponentInChildren<TextMeshProUGUI>();
+        startBtn.color = new Color32(51, 140, 36, 255); // Green #338C24
+        var bgImage = GameObject.FindGameObjectWithTag("Background");
+        LeanTween.alpha(bgImage, 1f, duration);
+        Invoke("LoadMainMenu", duration);
+    }
+
+    public void QuitApplication()
+    {
+        var quitBtn = GameObject.Find("Quit Button")
+            .GetComponentInChildren<TextMeshProUGUI>();
+        quitBtn.color = new Color32(180, 20, 20, 255); // Red #B41414
+        Debug.Log("Closing application.");
+        Application.Quit();
     }
 }

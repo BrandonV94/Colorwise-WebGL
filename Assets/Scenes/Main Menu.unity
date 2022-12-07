@@ -123,6 +123,23 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &238595207 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3306085893583009042, guid: b00cb1c4eadf2d342be883d20e418999, type: 3}
+  m_PrefabInstance: {fileID: 3306085895073502918}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &238595208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238595207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 322ee3210cb1af7489ae74d0b3eb49f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &801794939
 GameObject:
   m_ObjectHideFlags: 0
@@ -800,21 +817,53 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level_6
       objectReference: {fileID: 0}
+    - target: {fileID: 3306085893583009042, guid: b00cb1c4eadf2d342be883d20e418999, type: 3}
+      propertyPath: m_TagString
+      value: Level
+      objectReference: {fileID: 0}
     - target: {fileID: 3306085893693923889, guid: b00cb1c4eadf2d342be883d20e418999, type: 3}
       propertyPath: m_Name
       value: Level_4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3306085893693923889, guid: b00cb1c4eadf2d342be883d20e418999, type: 3}
+      propertyPath: m_TagString
+      value: Level
+      objectReference: {fileID: 0}
+    - target: {fileID: 3306085894835713132, guid: b00cb1c4eadf2d342be883d20e418999, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -120
       objectReference: {fileID: 0}
     - target: {fileID: 3306085894835713135, guid: b00cb1c4eadf2d342be883d20e418999, type: 3}
       propertyPath: m_Name
       value: Level_5
       objectReference: {fileID: 0}
+    - target: {fileID: 3306085894835713135, guid: b00cb1c4eadf2d342be883d20e418999, type: 3}
+      propertyPath: m_TagString
+      value: Level
+      objectReference: {fileID: 0}
     - target: {fileID: 3306085895013764713, guid: b00cb1c4eadf2d342be883d20e418999, type: 3}
       propertyPath: m_Name
       value: Level_1
       objectReference: {fileID: 0}
+    - target: {fileID: 3306085895013764713, guid: b00cb1c4eadf2d342be883d20e418999, type: 3}
+      propertyPath: m_TagString
+      value: Level
+      objectReference: {fileID: 0}
+    - target: {fileID: 3306085895013764726, guid: b00cb1c4eadf2d342be883d20e418999, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -120
+      objectReference: {fileID: 0}
+    - target: {fileID: 3306085895100787929, guid: b00cb1c4eadf2d342be883d20e418999, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -120
+      objectReference: {fileID: 0}
     - target: {fileID: 3306085895100787933, guid: b00cb1c4eadf2d342be883d20e418999, type: 3}
       propertyPath: m_Name
       value: Level_3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3306085895100787933, guid: b00cb1c4eadf2d342be883d20e418999, type: 3}
+      propertyPath: m_TagString
+      value: Level
       objectReference: {fileID: 0}
     - target: {fileID: 3306085895243453777, guid: b00cb1c4eadf2d342be883d20e418999, type: 3}
       propertyPath: m_Camera
@@ -911,6 +960,10 @@ PrefabInstance:
     - target: {fileID: 3306085895390763919, guid: b00cb1c4eadf2d342be883d20e418999, type: 3}
       propertyPath: m_Name
       value: Level_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3306085895390763919, guid: b00cb1c4eadf2d342be883d20e418999, type: 3}
+      propertyPath: m_TagString
+      value: Level
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b00cb1c4eadf2d342be883d20e418999, type: 3}

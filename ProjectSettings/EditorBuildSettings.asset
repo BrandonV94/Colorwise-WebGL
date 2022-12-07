@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Start Menu.unity
-    guid: 1e852b9a1df2e804da5f51c48372da76
+    path: Assets/Scenes/White Out Start Menu.unity
+    guid: 0bf5eb0110bb4ff48804aa8ac9307387
   - enabled: 1
     path: Assets/Scenes/Main Menu.unity
     guid: 191391355c1b6b742ac6f4126abccc9b
