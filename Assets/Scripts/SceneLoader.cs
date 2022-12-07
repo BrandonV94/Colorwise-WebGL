@@ -19,16 +19,17 @@ public class SceneLoader : MonoBehaviour
     [Header("Button Controls")]
     [Tooltip("Duration in seconds")]
     [SerializeField] float duration = 2;
+
     // Settings Canvas
     GameObject settingCanvas;
 
 
     private void Start()
     {
-        /*
+        // Prevents error from occuring in these specific scenes.
         if(SceneManager.GetActiveScene().name == "Settings" ||
             SceneManager.GetActiveScene().name == "Place Holder" ||
-            SceneManager.GetActiveScene().name == "Main Menu")
+            SceneManager.GetActiveScene().name == "Start Menu")
         {
             return;
         }
@@ -36,8 +37,7 @@ public class SceneLoader : MonoBehaviour
         {
             settingCanvas = GameObject.FindGameObjectWithTag("Settings");
             settingCanvas.gameObject.SetActive(false);
-        }
-        */
+        }   
     }
 
     public void LoadMainMenu()
