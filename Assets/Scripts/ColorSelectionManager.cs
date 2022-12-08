@@ -6,9 +6,8 @@
  * 
  * Last update: 11/7/2022 
  */
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ColorSelectionManager : MonoBehaviour
 {
@@ -27,15 +26,21 @@ public class ColorSelectionManager : MonoBehaviour
 
     private void Awake()
     {
-        AudioSource paintDropSFX = GameObject.Find("Paint Drop SFX")
+        paintDropSFX = GameObject.FindGameObjectWithTag("PaintDropSFX")
             .GetComponent<AudioSource>();
 
-        AudioSource splashSFX = GameObject.Find("Splash SFX")
+        splashSFX = GameObject.FindGameObjectWithTag("SplashSFX")
             .GetComponent<AudioSource>();
 
         gameController = FindObjectOfType<GameController>();
         settingsController = FindObjectOfType<SettingsController>();
     }
+
+    private void Start()
+    {
+        SetButtonColors();
+    }
+
     void Update()
     {
         if (settingsController.isGamePaused)
@@ -69,5 +74,15 @@ public class ColorSelectionManager : MonoBehaviour
     {
         colorCount = colorCode;
         paintDropSFX.Play();
+    }
+
+    void SetButtonColors()
+    {
+        var btn1 = GameObject.Find("Button_1").GetComponent<Image>();
+        btn1.color = colorList[0];
+        var btn2 = GameObject.Find("Button_2").GetComponent<Image>();
+        btn1.color = colorList[0];
+        var btn3 = GameObject.Find("Button_3").GetComponent<Image>();
+        btn1.color = colorList[0];
     }
 }

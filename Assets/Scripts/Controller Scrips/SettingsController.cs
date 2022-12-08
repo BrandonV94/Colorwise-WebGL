@@ -16,7 +16,7 @@ public class SettingsController : MonoBehaviour
 
     [Header("Settings Buttons")]
     [SerializeField] Button saveBtn;
-    [SerializeField] Button defaultBtn;
+    [SerializeField] Button muteBtn;
 
     [Header("Volume Setings")]
     [SerializeField] Slider musicSlider;
@@ -50,7 +50,7 @@ public class SettingsController : MonoBehaviour
             .GetComponent<Slider>();
 
         saveBtn = GameObject.Find("Save Button").GetComponent<Button>();
-        defaultBtn = GameObject.Find("Mute All Button").GetComponent<Button>();
+        muteBtn = GameObject.Find("Mute All Button").GetComponent<Button>();
     }
 
     private void OnEnable()
@@ -80,6 +80,11 @@ public class SettingsController : MonoBehaviour
         isGamePaused = false;
     }
 
+    public void PlaySFXSound()
+    {
+        paintDropSFX.PlayAudio();
+    }
+
     // Saves the current volume to PlayerPrefsController. 
     public void SaveAndReturn()
     {
@@ -103,6 +108,17 @@ public class SettingsController : MonoBehaviour
         paintDropSFX.SetSFXVolume(DEFAULT_SFX_VOLUME);
         incorrectSFX.SetSFXVolume(DEFAULT_SFX_VOLUME);
         completeSFX.SetSFXVolume(DEFAULT_SFX_VOLUME);
+    }
+
+    public void MuteAll()
+    {
+        musicPlayer.SetMusicVolume(0);
+        splashSFX.SetSFXVolume(0);
+        paintDropSFX.SetSFXVolume(0);
+        incorrectSFX.SetSFXVolume(0);
+        completeSFX.SetSFXVolume(0);
+        musicSlider.value = 0;
+        sfxSlider.value = 0;
     }
 
     void DeactivateSettings()
@@ -139,7 +155,7 @@ public class SettingsController : MonoBehaviour
             SaveAndReturn();
         });
 
-        defaultBtn.onClick.AddListener(delegate ()
+        muteBtn.onClick.AddListener(delegate ()
         {
             SetAllVolumeToDefaults();
         });
