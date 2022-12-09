@@ -76,6 +76,7 @@ public class ColorSelectionManager : MonoBehaviour
         paintDropSFX.Play();
     }
 
+    // TODO Remove this method and start method.
     void SetButtonColors()
     {
         var btn1 = GameObject.Find("Button_1").GetComponent<Image>();

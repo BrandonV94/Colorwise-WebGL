@@ -2,10 +2,8 @@
  * Script used to control the in game volume settings. 
  * Script recieves inital settings and values from the PlayerPrefsController.
  * 
- * Last update: 11/22/22
+ * Last update: 12/8/22
  */
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,7 +18,7 @@ public class SettingsController : MonoBehaviour
 
     [Header("Volume Setings")]
     [SerializeField] Slider musicSlider;
-    [SerializeField] Slider sfxSlider;
+    [SerializeField] Toggle sfxMuteToggle;
     [SerializeField] const float DEFAULT_MUSIC_VOLUME = .1f;
     [SerializeField] const float DEFAULT_SFX_VOLUME = 1f;
 
@@ -46,8 +44,10 @@ public class SettingsController : MonoBehaviour
         musicSlider = GameObject.FindGameObjectWithTag("MusicSlider")
             .GetComponent<Slider>();
 
-        sfxSlider = GameObject.FindGameObjectWithTag("SFXSlider")
-            .GetComponent<Slider>();
+        //sfxSlider = GameObject.FindGameObjectWithTag("SFXSlider").GetComponent<Slider>();
+
+        sfxMuteToggle = GameObject.FindGameObjectWithTag("MuteToggle")
+            .GetComponent<Toggle>();
 
         saveBtn = GameObject.Find("Save Button").GetComponent<Button>();
         muteBtn = GameObject.Find("Mute All Button").GetComponent<Button>();
@@ -65,13 +65,13 @@ public class SettingsController : MonoBehaviour
 
     void Update()
     {
-        if (sfxSlider && musicSlider)
+        if (sfxMuteToggle && musicSlider)
         {
             musicPlayer.SetMusicVolume(musicSlider.value);
-            splashSFX.SetSFXVolume(sfxSlider.value);
-            paintDropSFX.SetSFXVolume(sfxSlider.value);
-            incorrectSFX.SetSFXVolume(sfxSlider.value);
-            completeSFX.SetSFXVolume(sfxSlider.value);
+            splashSFX.SetSFXVolume(MuteToggleVolume());
+            paintDropSFX.SetSFXVolume(MuteToggleVolume());
+            incorrectSFX.SetSFXVolume(MuteToggleVolume());
+            completeSFX.SetSFXVolume(MuteToggleVolume());
         }
     }
 
@@ -80,17 +80,12 @@ public class SettingsController : MonoBehaviour
         isGamePaused = false;
     }
 
-    public void PlaySFXSound()
-    {
-        paintDropSFX.PlayAudio();
-    }
-
     // Saves the current volume to PlayerPrefsController. 
     public void SaveAndReturn()
     {
         // Saves volume settings to PlayerPrefsController
         PlayerPrefsController.SetMasterMusicVolume(musicSlider.value);
-        PlayerPrefsController.SetMasterSFXVolume(sfxSlider.value);
+        PlayerPrefsController.SetMasterSFXVolume(MuteToggleVolume());
 
         // Deactivates Settings canvas and moves up.
         // Up canvas pos: X = -0.13921 , Y = 11
@@ -100,7 +95,7 @@ public class SettingsController : MonoBehaviour
         Invoke("DeactivateSettings", 1);
     }
 
-    // Method that will be connected to a button to automatically mute all sounds.
+    // Method that returns all volume settings to default.
     public void SetAllVolumeToDefaults()
     {
         musicPlayer.SetMusicVolume(DEFAULT_MUSIC_VOLUME);
@@ -118,7 +113,19 @@ public class SettingsController : MonoBehaviour
         incorrectSFX.SetSFXVolume(0);
         completeSFX.SetSFXVolume(0);
         musicSlider.value = 0;
-        sfxSlider.value = 0;
+        sfxMuteToggle.isOn = false;
+    }
+
+    int MuteToggleVolume()
+    {
+        if(sfxMuteToggle.isOn == false)
+        {
+            return 0;
+        }
+        else
+        {
+            return 1;
+        }
     }
 
     void DeactivateSettings()
@@ -147,7 +154,14 @@ public class SettingsController : MonoBehaviour
     private void AssignSettingButtons()
     {
         musicSlider.value = PlayerPrefsController.GetMasterMusicVolume();
-        sfxSlider.value = PlayerPrefsController.GetMasterSFXVolume();
+        if(PlayerPrefsController.GetMasterSFXVolume() == 0)
+        {
+            sfxMuteToggle.isOn = false;
+        }
+        else
+        {
+            sfxMuteToggle.isOn = true;
+        }
 
         // Assign Buttons
         saveBtn.onClick.AddListener(delegate ()

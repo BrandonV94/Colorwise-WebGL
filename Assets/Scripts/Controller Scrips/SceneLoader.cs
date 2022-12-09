@@ -29,6 +29,7 @@ public class SceneLoader : MonoBehaviour
         // Prevents error from occuring in these specific scenes.
         if(SceneManager.GetActiveScene().name == "Settings" ||
             SceneManager.GetActiveScene().name == "Place Holder" ||
+            SceneManager.GetActiveScene().name == "Main Menu" ||
             SceneManager.GetActiveScene().name == "Start Menu")
         {
             return;

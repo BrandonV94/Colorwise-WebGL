@@ -15,6 +15,7 @@ TagManager:
   - SFXSlider
   - Level
   - Background
+  - MuteToggle
   layers:
   - Default
   - TransparentFX
