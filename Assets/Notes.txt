@@ -1,12 +1,11 @@
 -- Main Tasks
-1) Remake the main menu and level selection scenes.
+1) Remake level selection scenes.
 
 
 - Ideas
 1) Make new UI operational. DONE
 2) Create simple coloring game mode.
 3) Consider allowing users to pick colors.
-4) Merge the Main Menu and Level selection into single scene with transitions.
 
 
 Fonts I like

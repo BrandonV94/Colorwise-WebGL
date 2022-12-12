@@ -19,7 +19,7 @@ public class SettingsController : MonoBehaviour
     [Header("Volume Setings")]
     [SerializeField] Slider musicSlider;
     [SerializeField] Toggle sfxMuteToggle;
-    [SerializeField] const float DEFAULT_MUSIC_VOLUME = .1f;
+    [SerializeField] const float DEFAULT_MUSIC_VOLUME = .5f;
     [SerializeField] const float DEFAULT_SFX_VOLUME = 1f;
 
     [Header("Audio Components")]

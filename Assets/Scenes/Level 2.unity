@@ -511,10 +511,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6016973246958544501, guid: e3c650da61c6621429ea787b2a5352e9, type: 3}
       propertyPath: colorList.Array.data[0].g
-      value: 0.009995077
+      value: 0.6410173
       objectReference: {fileID: 0}
     - target: {fileID: 6016973246958544501, guid: e3c650da61c6621429ea787b2a5352e9, type: 3}
       propertyPath: colorList.Array.data[0].r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6016973246958544501, guid: e3c650da61c6621429ea787b2a5352e9, type: 3}
+      propertyPath: colorList.Array.data[1].b
+      value: 0.9616327
+      objectReference: {fileID: 0}
+    - target: {fileID: 6016973246958544501, guid: e3c650da61c6621429ea787b2a5352e9, type: 3}
+      propertyPath: colorList.Array.data[1].r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6016973246958544501, guid: e3c650da61c6621429ea787b2a5352e9, type: 3}
+      propertyPath: colorList.Array.data[2].b
+      value: 0.55272007
+      objectReference: {fileID: 0}
+    - target: {fileID: 6016973246958544501, guid: e3c650da61c6621429ea787b2a5352e9, type: 3}
+      propertyPath: colorList.Array.data[2].g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6016973246958544501, guid: e3c650da61c6621429ea787b2a5352e9, type: 3}
+      propertyPath: colorList.Array.data[2].r
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
